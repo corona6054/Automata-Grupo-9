@@ -6,8 +6,8 @@ int obtener_columna(int);
 void main(){
     int i=0;
     int estado = 0;
-	int estado_salida = 4;
-	int estado_rechazo = 5;	
+	int estado_salida = 3;
+	int estado_rechazo = 4;	
 	char caracter;
     int columna;
 	int matriz[5][5]={ {4,2,1,4,4},
@@ -19,6 +19,7 @@ void main(){
     char cadena[100];
 	printf("Ingrese una cadena: ");
 	scanf("%s", cadena);
+	caracter = cadena[0];
 
     while(estado!=estado_salida && estado!=estado_rechazo){       
 		columna = obtener_columna(caracter);
@@ -36,7 +37,7 @@ void main(){
 }
 
 int obtener_columna(int c){
-	if (c == 42 ||c == 43 ||c == 45)  // +,*,-
+	if (c == 42 ||c == 43 ||c == 45)  // *,+,-
 		return 0;
 	else
 		if (c == 48)  // '0'
@@ -50,3 +51,6 @@ int obtener_columna(int c){
 				else
 					return 4;  // Otros
 }
+
+
+ 

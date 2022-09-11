@@ -27,15 +27,15 @@ int main() {
 	scanf("%s", cadena);
 	caracter = cadena[0];
 
-	
-	while (cadena[longitud]!='\0')	  //cantidad de unidades para las potencias de 10
+	//cantidad de unidades para las potencias de 10
+	while (cadena[longitud]!='\0')	  
 	{
 		longitud++;
 	};
 	longitud = longitud - 1;
 
-
-if (obtener_columna(cadena[0])==0){      // lee primer caracter si es negativo o cero
+	// lee primer caracter si es negativo o cero
+if (obtener_columna(cadena[0])==0){      
 	signo = -1;
 	columna = obtener_columna(caracter);
 		estado = matriz[estado][columna];
@@ -47,16 +47,19 @@ else
 	{
 		signo = -1;
 	}
-	
-	while(estado!=estado_salida && estado!=estado_rechazo){       //lee el resto de caracteres menos el signo
-		if(caracter!='\0'){
-			numerofinal = numerofinal + (caracter - 48) * (potencia(10, longitud - i));	// numero * (10^ posicion)
-			}
+
+	//lee el resto de caracteres menos el signo
+	while(estado!=estado_salida && estado!=estado_rechazo){       
+		if(caracter!='\0')	
+		// total = numero * (10^ posicion)
+		numerofinal = numerofinal + (caracter - 48) * (potencia(10, longitud - i));	
+
 		columna = obtener_columna(caracter);
 		estado = matriz[estado][columna];
 		i++;
 		caracter = cadena[i];
 	}	
+
 	if (estado == estado_salida)
 	{
 		numerofinal = numerofinal * signo;
@@ -86,6 +89,6 @@ int obtener_columna(int c){
 int potencia(int base, unsigned int exp) {
     int i, resultado = 1;
     for (i = 0; i < exp; i++)
-        resultado *= base;
+        resultado = resultado * base;
     return resultado;
  }

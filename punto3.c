@@ -2,6 +2,7 @@
 #include <stdlib.h>
 
 int obtener_columna(int);
+int longitudnum(char cadena[100], int posicion);
 
 void main(){
 	int estado = 0;
@@ -22,14 +23,15 @@ void main(){
 	int i=0;
 	int columna;
 	int longitud = 0;
-	int numerico=0;
+	int numerico = 0;
 
-
-    while(estado!=estado_salida && estado!=estado_rechazo){
+	while(estado!=estado_salida && estado!=estado_rechazo){
 		columna = obtener_columna(caracter);
-		if (columna==1||columna==2)	numerico++;
-		if (columna!=1&&columna!=2&&numerico ==1) numerico = 0;
-
+		if (numerico ==0) {
+			longitud = longitudnum(cadena, i);
+			numerico++;
+			}
+		if(columna ==0)numerico=0;
 		estado = matriz[estado][columna];
 		i++;
 		caracter = cadena[i];
@@ -59,5 +61,23 @@ int obtener_columna(int c){
 					return 4;  // Otros
 }
 
+int longitudnum (char cadena[100],int posicion){
+	int caracter = cadena[posicion];
+	int longitud=0;
+	int columna ;
+	int distinto=0;
+	while (distinto==0)
+	{
+		columna = obtener_columna(caracter);
+		
+		if (columna!=1 && columna!=2) distinto++;
+		else{
+			longitud++;
+			posicion++;
+			caracter = cadena[posicion];
+		}
+	}
+	return longitud;
+}
 
  

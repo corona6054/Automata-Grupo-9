@@ -22,16 +22,9 @@ void main(){
 
 	int i=0;
 	int columna;
-	int longitud = 0;
-	int numerico = 0;
 
 	while(estado!=estado_salida && estado!=estado_rechazo){
 		columna = obtener_columna(caracter);
-		if (numerico ==0) {
-			longitud = longitudnum(cadena, i);
-			numerico++;
-			}
-		if(columna ==0)numerico=0;
 		estado = matriz[estado][columna];
 		i++;
 		caracter = cadena[i];

@@ -3,8 +3,19 @@
 
 int obtener_columna(int);
 int potencia(int base, unsigned int exp);
+int devolvernum(char cadena[100], int posicion);
 
 int main() {
+	int numerofinal = 0;
+	char cadena[100];
+
+	printf("Ingrese una cadena: ");
+	scanf("%s", cadena);
+	numerofinal = devolvernum(cadena, 0);	
+	printf("Numero final: %d",numerofinal);
+}
+
+int devolvernum(char cadena[100],int posicion) {
 	int estado = 0;
 	int estado_salida = 3;
 	int estado_rechazo = 4;	
@@ -13,16 +24,11 @@ int main() {
 					   {2,2,3,3},
 					   {4,4,4,4},
 					   {4,4,4,4}};
-	
-	char cadena[100];
 	char caracter;
-	printf("Ingrese una cadena: ");
-	scanf("%s", cadena);
-	caracter = cadena[0];
-	
-    
-	int longitud = 0;						//cantidad de unidades para las potencias de 10
-	while (cadena[longitud]>47 &&cadena[longitud]<58)	  longitud++;
+	caracter = cadena[posicion];
+	int longitud = posicion;
+	//cantidad de unidades para las potencias de 10
+	while (cadena[longitud]>47 &&cadena[longitud]<58)	longitud++;
 	longitud = longitud - 1;
 
 	int i=0;
@@ -39,12 +45,12 @@ int main() {
 
 	if (estado == estado_salida)
 	{
-		printf("Numero final: %d \n",numerofinal);
+		return numerofinal;
 	}
 	else
 		printf("Error léxico\n");
+	return 0;
 }
-
 
 int obtener_columna(int c){
 		if (c == 48)  // '0'

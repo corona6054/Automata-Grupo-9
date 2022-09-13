@@ -23,11 +23,24 @@ void main(){
 	caracter = cadena[0];
 
 	int i=0;
+	int inicionum=1;
+	int numeros = 0;
 	int columna;
 
-	while(estado!=estado_salida && estado!=estado_rechazo){
+	while(estado!=estado_salida && estado!=estado_rechazo){	
 		columna = obtener_columna(caracter);
 		estado = matriz[estado][columna];
+
+		// calcula al inicio de un numero y se activa nuevamente despues de un operador
+		if (inicionum == 1)
+		{		
+			numeros = devolvernum(cadena, i);
+			printf("Numeros: %d \n",numeros);
+			inicionum = 0;
+		}
+		if (columna==0)	inicionum = 1;
+
+		
 		i++;
 		caracter = cadena[i];
 	}	
@@ -72,12 +85,12 @@ int devolvernum(char cadena[100],int posicion) {
 	while (cadena[longitud]>47 &&cadena[longitud]<58)	longitud++;
 	longitud = longitud - 1;
 
-	int i=0;
+	int i=posicion;
 	int columna;
 	int numerofinal = 0;
 
 	while(estado!=estado_salida && estado!=estado_rechazo){    // total = numero * (10^ posicion) 
-		columna = obtener_columna(caracter);
+		columna = obtener_columna_punto2(caracter);
 		if(columna==0||columna==1)	numerofinal = numerofinal + (caracter - 48) * (potencia(10, longitud - i));	
 		estado = matriz[estado][columna];
 		i++;

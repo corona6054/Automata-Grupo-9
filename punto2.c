@@ -9,8 +9,8 @@ int main() {
 	int estado_salida = 3;
 	int estado_rechazo = 4;	
 	int matriz[5][4]={ {1,2,4,4},
-					   {4,4,3,4},
-					   {2,2,3,4},
+					   {4,4,3,3},
+					   {2,2,3,3},
 					   {4,4,4,4},
 					   {4,4,4,4}};
 	
@@ -22,7 +22,7 @@ int main() {
 	
     
 	int longitud = 0;						//cantidad de unidades para las potencias de 10
-	while (cadena[longitud]!='\0')	  longitud++;
+	while (cadena[longitud]>47 &&cadena[longitud]<58)	  longitud++;
 	longitud = longitud - 1;
 
 	int i=0;
@@ -30,8 +30,8 @@ int main() {
 	int numerofinal = 0;
 
 	while(estado!=estado_salida && estado!=estado_rechazo){    // total = numero * (10^ posicion) 
-		if(caracter!='\0')	numerofinal = numerofinal + (caracter - 48) * (potencia(10, longitud - i));	
 		columna = obtener_columna(caracter);
+		if(columna==0||columna==1)	numerofinal = numerofinal + (caracter - 48) * (potencia(10, longitud - i));	
 		estado = matriz[estado][columna];
 		i++;
 		caracter = cadena[i];

@@ -5,16 +5,9 @@ int obtener_columna(int);
 int potencia(int base, unsigned int exp);
 
 int main() {
-	
-	int i=0;
-	int signo = 1;
-	int longitud = 0;
-	int numerofinal = 0;
 	int estado = 0;
 	int estado_salida = 4;
 	int estado_rechazo = 5;	
-	char caracter;
-    int columna;
 	int matriz[6][5]={ {1,3,2,5,5},
 					   {5,5,2,5,5},
 					   {5,2,2,4,5},
@@ -23,33 +16,33 @@ int main() {
 					   {5,5,5,5,5} };
 	
 	char cadena[100];
+	char caracter;
 	printf("Ingrese una cadena: ");
 	scanf("%s", cadena);
 	caracter = cadena[0];
-
-	//cantidad de unidades para las potencias de 10
-	while (cadena[longitud]!='\0')	  
-	{
-		longitud++;
-	};
+	
+    
+	int longitud = 0;						//cantidad de unidades para las potencias de 10
+	while (cadena[longitud]!='\0')	  longitud++;
 	longitud = longitud - 1;
 
-	// lee primer caracter si es negativo o cero
-if (obtener_columna(cadena[0])==0){      
+	int i=0;
+	int columna;
+	int signo = 1;
+	int numerofinal = 0;
+
+	
+if (obtener_columna(cadena[0])==0){      // lee primer caracter si es negativo o cero
 	signo = -1;
 	columna = obtener_columna(caracter);
 		estado = matriz[estado][columna];
 		i++;
 		caracter = cadena[i];
 } 
-else
-	if (obtener_columna(cadena[0])==0)
-	{
-		signo = -1;
-	}
+else if (obtener_columna(cadena[0])==1)   signo = 0;
 
-	//lee el resto de caracteres menos el signo
-	while(estado!=estado_salida && estado!=estado_rechazo){       
+	
+	while(estado!=estado_salida && estado!=estado_rechazo){    //lee el resto de caracteres   
 		if(caracter!='\0')	
 		// total = numero * (10^ posicion)
 		numerofinal = numerofinal + (caracter - 48) * (potencia(10, longitud - i));	

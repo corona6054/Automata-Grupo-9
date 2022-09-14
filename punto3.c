@@ -44,6 +44,7 @@ void main(){
 	int operador=0;
 	i=0;
 	int fin = 0;
+
 	while (fin==0)
 	{
 		// calcula al inicio de un numero y se activa nuevamente despues de un operador

@@ -5,6 +5,9 @@ int obtener_columna(int);
 int obtener_columna_punto2(int);
 int potencia(int base, unsigned int exp);
 int devolvernum(char cadena[100], int posicion);
+int calcularsig(char cadena[100], int posicion);
+int sigoperador(char cadena[100], int posicion);
+int possigtermino(char cadena[100], int posicion);
 
 void main(){
 	int estado = 0;
@@ -38,31 +41,9 @@ void main(){
 	else
 		printf("Error léxico\n");
 
-	int inicionum=1;
-	int numeros = 0;
-	int numfinal=0;
-	int operador=0;
-	i=0;
-	int fin = 0;
+	int numerofinal = 0;
 
-	while (fin==0)
-	{
-		// calcula al inicio de un numero y se activa nuevamente despues de un operador
-		if (inicionum == 1)
-		{		
-			numeros = devolvernum(cadena, i);
-			operador = sigoperador(cadena, i);
-			printf("Numeros: %d \n",numeros);
-			printf("Operador: %c \n",operador);
-			inicionum = 0;
-		}
-		if (obtener_columna(caracter)==0)	inicionum = 1;
-		if(operador=='\0') fin++;
-		i++;
-		caracter = cadena[i];
-	}
-	
-    
+	numerofinal = calcularsig(cadena, 0);     //intento de recursividad
 }
 
 int obtener_columna(int c){
@@ -107,7 +88,8 @@ int devolvernum(char cadena[100],int posicion) {
 		estado = matriz[estado][columna];
 		i++;
 		caracter = cadena[i];
-	}	
+	}
+
 
 	if (estado == estado_salida)
 	{
@@ -147,7 +129,7 @@ int sigoperador(char cadena[100],int posicion){
 	return caracter;
 }
 
-int sigtermino (char cadena[100],int posicion){
+int possigtermino (char cadena[100],int posicion){
 	int caracter=1;
 	while (caracter != 42 && caracter != 43 &&caracter != 45 &&caracter != '\0')	{   // *,+,-, \0
 		posicion++;
@@ -155,4 +137,21 @@ int sigtermino (char cadena[100],int posicion){
 	}
 	posicion++;
 	return posicion;
+}
+
+int calcularsig(char cadena[100],int posicion){
+	int i=posicion;
+	int numfinal=0;
+	int numeros = devolvernum(cadena, i);
+	int operador=sigoperador(cadena, i);
+	int sig = possigtermino(cadena, i);
+			
+			printf("Numeros: %d \n",numeros);
+			printf("Operador: %c \n",operador);
+			if (operador==0)		numfinal = numeros; 
+				if(operador==43)	numfinal = numeros + calcularsig(cadena, sig);
+				if(operador==45)	numfinal = numeros - calcularsig(cadena, sig);
+				if(operador==42)	numfinal = numeros * calcularsig(cadena, sig);
+			printf("Numero final: %d \n",numfinal);
+	return numfinal;
 }

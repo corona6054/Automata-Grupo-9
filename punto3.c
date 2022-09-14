@@ -147,4 +147,12 @@ int sigoperador(char cadena[100],int posicion){
 	return caracter;
 }
 
-//int termino (int leftvalue)
+int sigtermino (char cadena[100],int posicion){
+	int caracter=1;
+	while (caracter != 42 && caracter != 43 &&caracter != 45 &&caracter != '\0')	{   // *,+,-, \0
+		posicion++;
+		caracter = cadena[posicion];
+	}
+	posicion++;
+	return posicion;
+}

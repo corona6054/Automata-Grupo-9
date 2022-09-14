@@ -25,6 +25,7 @@ void main(){
 	int i=0;
 	int inicionum=1;
 	int numeros = 0;
+	int operador=0;
 	int columna;
 
 	while(estado!=estado_salida && estado!=estado_rechazo){	
@@ -35,11 +36,12 @@ void main(){
 		if (inicionum == 1)
 		{		
 			numeros = devolvernum(cadena, i);
+			operador = sigoperador(cadena, i);
 			printf("Numeros: %d \n",numeros);
+			printf("Operador: %c \n",operador);
 			inicionum = 0;
 		}
 		if (columna==0)	inicionum = 1;
-
 		
 		i++;
 		caracter = cadena[i];
@@ -48,7 +50,7 @@ void main(){
     if (estado == estado_salida)
 	{
 		printf("Correcto \n");
-	}
+ 	}
 	else
 		printf("Error léxico\n");
 }
@@ -126,3 +128,11 @@ int potencia(int base, unsigned int exp) {
     return resultado;
  }
  
+int sigoperador(char cadena[100],int posicion){
+	int caracter=1;
+	while (caracter != 42 && caracter != 43 &&caracter != 45 &&caracter != '\0')	{   // *,+,-, \0
+		posicion++;
+		caracter = cadena[posicion];
+	}
+	return caracter;
+}

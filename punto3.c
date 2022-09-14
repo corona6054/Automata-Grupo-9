@@ -23,15 +23,29 @@ void main(){
 	caracter = cadena[0];
 
 	int i=0;
-	int inicionum=1;
-	int numeros = 0;
-	int operador=0;
 	int columna;
 
 	while(estado!=estado_salida && estado!=estado_rechazo){	
 		columna = obtener_columna(caracter);
 		estado = matriz[estado][columna];
+		i++;
+		caracter = cadena[i];
+	}	
+	if (estado == estado_salida)
+	{
+		printf("Correcto \n");
+ 	}
+	else
+		printf("Error léxico\n");
 
+	int inicionum=1;
+	int numeros = 0;
+	int numfinal=0;
+	int operador=0;
+	i=0;
+	int fin = 0;
+	while (fin==0)
+	{
 		// calcula al inicio de un numero y se activa nuevamente despues de un operador
 		if (inicionum == 1)
 		{		
@@ -41,18 +55,13 @@ void main(){
 			printf("Operador: %c \n",operador);
 			inicionum = 0;
 		}
-		if (columna==0)	inicionum = 1;
-		
+		if (obtener_columna(caracter)==0)	inicionum = 1;
+		if(operador=='\0') fin++;
 		i++;
 		caracter = cadena[i];
-	}	
-
-    if (estado == estado_salida)
-	{
-		printf("Correcto \n");
- 	}
-	else
-		printf("Error léxico\n");
+	}
+	
+    
 }
 
 int obtener_columna(int c){
@@ -136,3 +145,5 @@ int sigoperador(char cadena[100],int posicion){
 	}
 	return caracter;
 }
+
+//int termino (int leftvalue)

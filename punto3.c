@@ -140,20 +140,11 @@ int calcularsig(char cadena[100]){
 					   {4,4,4,4,4}};
 
 	int i=0;
-	int inicionum=0;
+	int inicionum=1;
 	int numeros = 0;
 	int operador=0;
 	int columna;
 	int caracter = cadena[0];
-
-	columna = obtener_columna(caracter);
-	estado = matriz[estado][columna];
-	numeros = devolvernum(cadena, i);
-	operador = sigoperador(cadena, i);
-	printf("Numeros: %d \n",numeros);
-	printf("Operador: %c \n",operador);
-	i++;
-	caracter = cadena[i];
 
 	while(estado!=estado_salida && estado!=estado_rechazo){	
 		columna = obtener_columna(caracter);

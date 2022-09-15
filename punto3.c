@@ -5,7 +5,7 @@ int obtener_columna(int);
 int obtener_columna_punto2(int);
 int potencia(int base, unsigned int exp);
 int devolvernum(char cadena[100], int posicion);
-int calcularsig(char cadena[100], int posicion);
+int calcularsig(char cadena[100]);
 int sigoperador(char cadena[100], int posicion);
 int possigtermino(char cadena[100], int posicion);
 
@@ -37,13 +37,12 @@ void main(){
 	if (estado == estado_salida)
 	{
 		printf("Correcto \n");
+		calcularsig(cadena);
  	}
 	else
 		printf("Error léxico\n");
 
 	int numerofinal = 0;
-
-	numerofinal = calcularsig(cadena, 0);     //intento de recursividad
 }
 
 int obtener_columna(int c){
@@ -129,29 +128,47 @@ int sigoperador(char cadena[100],int posicion){
 	return caracter;
 }
 
-int possigtermino (char cadena[100],int posicion){
-	int caracter=1;
-	while (caracter != 42 && caracter != 43 &&caracter != 45 &&caracter != '\0')	{   // *,+,-, \0
-		posicion++;
-		caracter = cadena[posicion];
-	}
-	posicion++;
-	return posicion;
-}
+int calcularsig(char cadena[100]){
+	
+	int estado = 0;
+	int estado_salida = 3;
+	int estado_rechazo = 4;	
+	int matriz[5][5]={ {4,2,1,4,4},
+					   {0,1,1,3,4},
+					   {0,4,4,3,4},
+					   {4,4,4,4,4},
+					   {4,4,4,4,4}};
 
-int calcularsig(char cadena[100],int posicion){
-	int i=posicion;
-	int numfinal=0;
-	int numeros = devolvernum(cadena, i);
-	int operador=sigoperador(cadena, i);
-	int sig = possigtermino(cadena, i);
-			
+	int i=0;
+	int inicionum=0;
+	int numeros = 0;
+	int operador=0;
+	int columna;
+	int caracter = cadena[0];
+
+	columna = obtener_columna(caracter);
+	estado = matriz[estado][columna];
+	numeros = devolvernum(cadena, i);
+	operador = sigoperador(cadena, i);
+	printf("Numeros: %d \n",numeros);
+	printf("Operador: %c \n",operador);
+	i++;
+	caracter = cadena[i];
+
+	while(estado!=estado_salida && estado!=estado_rechazo){	
+		columna = obtener_columna(caracter);
+		estado = matriz[estado][columna];
+		// calcula al inicio de un numero y se activa nuevamente despues de un operador
+		if (inicionum == 1)
+		{		
+			numeros = devolvernum(cadena, i);
+			operador = sigoperador(cadena, i);
 			printf("Numeros: %d \n",numeros);
 			printf("Operador: %c \n",operador);
-			if (operador==0)		numfinal = numeros; 
-				if(operador==43)	numfinal = numeros + calcularsig(cadena, sig);
-				if(operador==45)	numfinal = numeros - calcularsig(cadena, sig);
-				if(operador==42)	numfinal = numeros * calcularsig(cadena, sig);
-			printf("Numero final: %d \n",numfinal);
-	return numfinal;
+			inicionum = 0;
+		}
+		if (columna==0)	inicionum = 1;
+		i++;
+		caracter = cadena[i];
+	}	
 }

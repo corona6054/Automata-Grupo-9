@@ -1,6 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
-
 //FORMATO DE LOS NODOS
 typedef struct _nodo {
     float operando;
